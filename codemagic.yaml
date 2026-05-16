@@ -18,9 +18,6 @@ workflows:
       - name: Install dependencies
         script: |
           pnpm install --ignore-scripts
-      - name: Build Web Project
-        script: |
-          pnpm run build
       - name: Sync Capacitor
         script: |
           pnpm exec cap sync android
@@ -51,9 +48,6 @@ workflows:
       - name: Install dependencies
         script: |
           pnpm install --ignore-scripts
-      - name: Build Web Project
-        script: |
-          pnpm run build
       - name: Sync Capacitor
         script: |
           pnpm exec cap sync ios
