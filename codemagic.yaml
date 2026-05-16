@@ -5,6 +5,8 @@ workflows:
     max_build_duration: 60
     environment:
       node: latest
+      groups:
+        - sendo  # <--- Vinculado con tu grupo de variables en Codemagic
     triggering:
       events:
         - push
@@ -18,9 +20,24 @@ workflows:
       - name: Install dependencies
         script: |
           pnpm install --ignore-scripts
+      - name: Ensure Web Dir Exists
+        script: |
+          mkdir -p www
       - name: Sync Capacitor
         script: |
           pnpm exec cap sync android
+      - name: Set up code signing
+        script: |
+          # Reconstruye el archivo de claves .p12 desde la variable Base64 de Floot
+          echo $CM_KEYSTORE | base64 --decode > /tmp/sendo-upload-keystore.p12
+          
+          # Inyecta dinámicamente las credenciales en el archivo local.properties de Android
+          cat >> android/local.properties <<EOF
+          release.keystore=/tmp/sendo-upload-keystore.p12
+          release.keystore.password=$CM_KEYSTORE_PASSWORD
+          release.key.alias=$CM_KEY_ALIAS
+          release.key.password=$CM_KEY_PASSWORD
+          EOF
       - name: Build APK (Android Release)
         script: |
           cd android && ./gradlew assembleRelease
@@ -35,6 +52,8 @@ workflows:
       node: latest
       xcode: latest
       cocoapods: default
+      groups:
+        - sendo  # <--- También vinculado para iOS a futuro
     triggering:
       events:
         - push
@@ -48,6 +67,9 @@ workflows:
       - name: Install dependencies
         script: |
           pnpm install --ignore-scripts
+      - name: Ensure Web Dir Exists
+        script: |
+          mkdir -p www
       - name: Sync Capacitor
         script: |
           pnpm exec cap sync ios
