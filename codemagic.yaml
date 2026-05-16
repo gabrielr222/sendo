@@ -1,10 +1,41 @@
 workflows:
-  flutter-app:
-    name: Build Sendo App
+  capacitor-android:
+    name: Build Sendo Android (Capacitor)
     instance_type: mac_mini_m1
     max_build_duration: 60
     environment:
-      flutter: stable
+      node: latest
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+    scripts:
+      - name: Install PNPM global
+        script: |
+          npm install -g pnpm
+      - name: Install dependencies
+        script: |
+          pnpm install
+      - name: Build Web Project
+        script: |
+          pnpm run build
+      - name: Sync Capacitor
+        script: |
+          pnpm exec cap sync android
+      - name: Build APK (Android Release)
+        script: |
+          cd android && ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/apk/release/*.apk
+
+  capacitor-ios:
+    name: Build Sendo iOS (Capacitor)
+    instance_type: mac_mini_m1
+    max_build_duration: 60
+    environment:
+      node: latest
       xcode: latest
       cocoapods: default
     triggering:
@@ -14,15 +45,23 @@ workflows:
         - pattern: 'main'
           include: true
     scripts:
-      - name: Get Flutter packages
-        script: | 
-          flutter packages pub get
-      - name: Build APK (Android)
-        script: | 
-          flutter build apk --release
-      - name: Build IPA (iOS)
-        script: | 
-          flutter build ipa --release --no-codesign
+      - name: Install PNPM global
+        script: |
+          npm install -g pnpm
+      - name: Install dependencies
+        script: |
+          pnpm install
+      - name: Build Web Project
+        script: |
+          pnpm run build
+      - name: Sync Capacitor
+        script: |
+          pnpm exec cap sync ios
+      - name: CocoaPods Install
+        script: |
+          cd ios/App && pod install
+      - name: Build iOS App
+        script: |
+          cd ios/App && xcodebuild -workspace App.xcworkspace -scheme App -configuration Release -sdk iphoneos CODE_SIGNING_ALLOWED=NO
     artifacts:
-      - build/app/outputs/flutter-apk/*.apk
-      - build/ios/iphoneos/*.ipa
+      - ios/App/build/Release-iphoneos/*.app
