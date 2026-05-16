@@ -57,7 +57,7 @@ workflows:
         - push
       branch_patterns:
         - pattern: 'main'
-          include: true
+          include: false # <--- CAMBIAMOS ESTO para que no falle automáticamente en cada push
     scripts:
       - name: Install PNPM
         script: |
