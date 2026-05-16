@@ -17,7 +17,7 @@ workflows:
           npm install -g pnpm --force
       - name: Install dependencies
         script: |
-          pnpm install
+          pnpm install --ignore-scripts
       - name: Build Web Project
         script: |
           pnpm run build
@@ -50,7 +50,7 @@ workflows:
           npm install -g pnpm --force
       - name: Install dependencies
         script: |
-          pnpm install
+          pnpm install --ignore-scripts
       - name: Build Web Project
         script: |
           pnpm run build
