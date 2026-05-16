@@ -12,9 +12,9 @@ workflows:
         - pattern: 'main'
           include: true
     scripts:
-      - name: Install PNPM global
+      - name: Install PNPM
         script: |
-          npm install -g pnpm
+          npm install -g pnpm --force
       - name: Install dependencies
         script: |
           pnpm install
@@ -45,9 +45,9 @@ workflows:
         - pattern: 'main'
           include: true
     scripts:
-      - name: Install PNPM global
+      - name: Install PNPM
         script: |
-          npm install -g pnpm
+          npm install -g pnpm --force
       - name: Install dependencies
         script: |
           pnpm install
