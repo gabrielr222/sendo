@@ -5,7 +5,7 @@ workflows:
     max_build_duration: 60
     environment:
       node: latest
-      java: 17       # <--- ESTA LÍNEA SE ENCARGA DE CORREGIR EL ERROR DE VERSIÓN
+      java: 17
       groups:
         - sendo
     triggering:
@@ -21,9 +21,6 @@ workflows:
       - name: Install dependencies
         script: |
           pnpm install --ignore-scripts
-      - name: Ensure Web Dir Exists
-        script: |
-          mkdir -p www
       - name: Sync Capacitor
         script: |
           pnpm exec cap sync android
@@ -68,9 +65,6 @@ workflows:
       - name: Install dependencies
         script: |
           pnpm install --ignore-scripts
-      - name: Ensure Web Dir Exists
-        script: |
-          mkdir -p www
       - name: Sync Capacitor
         script: |
           pnpm exec cap sync ios
