@@ -1,12 +1,11 @@
 workflows:
   capacitor-android:
-    name: Build Sendo Android (Capacitor)
+    name: Build Sendo Android
 
     instance_type: mac_mini_m1
     max_build_duration: 60
 
     environment:
-      node: latest
       java: 17
 
     triggering:
@@ -18,21 +17,10 @@ workflows:
           include: true
 
     scripts:
-      - name: Install dependencies
-        script: |
-          npm install --legacy-peer-deps
-
-      - name: Build web app
-        script: |
-          npm run build
-
-      - name: Sync Capacitor
-        script: |
-          npx cap sync android
-
       - name: Build APK
         script: |
           cd android
+          chmod +x gradlew
           ./gradlew assembleRelease
 
     artifacts:
