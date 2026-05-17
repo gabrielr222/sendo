@@ -7,7 +7,7 @@ workflows:
 
     environment:
       node: latest
-      java: 17
+      java: 21
 
     triggering:
       events:
