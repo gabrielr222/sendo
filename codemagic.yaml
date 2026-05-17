@@ -18,25 +18,17 @@ workflows:
           include: true
 
     scripts:
-      - name: Install PNPM
-        script: |
-          npm install -g pnpm --force
-
-      - name: Configure PNPM
-        script: |
-          pnpm config set ignore-scripts false
-
       - name: Install dependencies
         script: |
-          pnpm install --no-frozen-lockfile
+          npm install
 
       - name: Build web app
         script: |
-          pnpm run build
+          npm run build
 
       - name: Sync Capacitor
         script: |
-          pnpm exec cap sync android
+          npx cap sync android
 
       - name: Build APK
         script: |
