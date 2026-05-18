@@ -1,6 +1,6 @@
 workflows:
   capacitor-android:
-    name: Build Sendo Android
+    name: Build Sendo Android AAB
 
     instance_type: mac_mini_m1
     max_build_duration: 60
@@ -8,6 +8,9 @@ workflows:
     environment:
       node: latest
       java: 21
+
+      android_signing:
+        - sendo-key
 
     triggering:
       events:
@@ -31,11 +34,11 @@ workflows:
         script: |
           npx cap sync android
 
-      - name: Build APK
+      - name: Build AAB
         script: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease
+          ./gradlew bundleRelease
 
     artifacts:
-      - android/app/build/outputs/**/*.apk
+      - android/app/build/outputs/**/*.aab
