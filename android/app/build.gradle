@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "app.floot.u8b2c939d0802493fa7d70435e6648cec"
+    namespace = "app.sendo.delivery"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "app.floot.u8b2c939d0802493fa7d70435e6648cec"
+        applicationId "app.sendo.delivery"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 73
+        versionCode 74
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

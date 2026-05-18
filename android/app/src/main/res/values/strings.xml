@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">Sendo</string>
     <string name="title_activity_main">Sendo</string>
-    <string name="package_name">app.floot.u8b2c939d0802493fa7d70435e6648cec</string>
-    <string name="custom_url_scheme">app.floot.u8b2c939d0802493fa7d70435e6648cec</string>
+    <string name="package_name">app.sendo.delivery</string>
+    <string name="custom_url_scheme">app.sendo.delivery</string>
 </resources>
