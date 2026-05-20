@@ -9,6 +9,9 @@ workflows:
       node: latest
       java: 21
 
+      vars:
+        CM_VERSION_NAME: "1.2"
+
       android_signing:
         - sendo-key
 
@@ -33,6 +36,14 @@ workflows:
       - name: Sync Capacitor
         script: |
           npx cap sync android
+
+      - name: Update Android version
+        script: |
+          cd android
+
+          sed -i.bak "s/versionCode [0-9]*/versionCode $BUILD_NUMBER/" app/build.gradle
+
+          sed -i.bak 's/versionName "[^"]*"/versionName "'"$CM_VERSION_NAME"'"/' app/build.gradle
 
       - name: Inject signing config
         script: |
