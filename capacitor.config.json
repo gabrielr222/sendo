@@ -2,6 +2,13 @@
   "appId": "app.sendo.delivery",
   "appName": "Sendo",
   "webDir": "dist",
+  "server": {
+    "url": "https://sendoapp.floot.app",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": true
+  },
   "plugins": {
     "CapacitorCookies": {
       "enabled": true
