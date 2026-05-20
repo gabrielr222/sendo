@@ -10,6 +10,7 @@ workflows:
       java: 21
 
       vars:
+        CM_VERSION_CODE: "76"
         CM_VERSION_NAME: "1.2"
 
       android_signing:
@@ -41,7 +42,7 @@ workflows:
         script: |
           cd android
 
-          sed -i.bak "s/versionCode [0-9]*/versionCode $BUILD_NUMBER/" app/build.gradle
+          sed -i.bak "s/versionCode [0-9]*/versionCode $CM_VERSION_CODE/" app/build.gradle
 
           sed -i.bak 's/versionName "[^"]*"/versionName "'"$CM_VERSION_NAME"'"/' app/build.gradle
 
