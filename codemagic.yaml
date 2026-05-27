@@ -122,16 +122,13 @@ workflows:
         script: |
           xcode-project use-profiles
 
-      - name: Configure Xcode Signing Style
-        script: |
-          # Fuerza al proyecto nativo a desactivar la firma manual heredada
-          sed -i '' 's/CODE_SIGN_STYLE = Manual;/CODE_SIGN_STYLE = Automatic;/g' ios/App/App.xcodeproj/project.pbxproj
-
       - name: Build IPA
         script: |
+          # Xcode requiere que le pasemos las variables del perfil de Codemagic para firmar en modo Manual
           xcode-project build-ipa \
             --workspace "ios/App/App.xcworkspace" \
-            --scheme "App"
+            --scheme "App" \
+            --vargs "DEVELOPMENT_TEAM=C4MF2U58VT PROVISIONING_PROFILE_SPECIFIER=\"Sendo iOS Cert\""
 
     artifacts:
       - build/ios/ipa/*.ipa
