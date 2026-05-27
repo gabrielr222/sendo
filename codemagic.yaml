@@ -120,8 +120,8 @@ workflows:
 
       - name: Initialize iOS Signing
         script: |
-          # Le sumamos la bandera de descarga y generación limpia sin argumentos posicionales
-          xcode-project use-profiles --download-profiles
+          # Ahora que el perfil existe en la web, el comando limpio lo descarga solo
+          xcode-project use-profiles
 
       - name: Build IPA
         script: |
