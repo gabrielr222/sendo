@@ -92,7 +92,7 @@ workflows:
 
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.sendo.delivery
+        bundle_identifier: app.sendo.delivery
 
     integrations:
       app_store_connect: codemagic
