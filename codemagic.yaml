@@ -120,7 +120,7 @@ workflows:
 
       - name: Initialize iOS Signing
         script: |
-          xcode-project use-profiles --create
+          xcode-project use-profiles
 
       - name: Build IPA
         script: |
