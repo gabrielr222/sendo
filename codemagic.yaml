@@ -122,13 +122,23 @@ workflows:
         script: |
           xcode-project use-profiles
 
-      - name: Build IPA
+      - name: Build IPA (Native Xcodebuild)
         script: |
-          # Xcode requiere que le pasemos las variables del perfil de Codemagic para firmar en modo Manual
-          xcode-project build-ipa \
-            --workspace "ios/App/App.xcworkspace" \
-            --scheme "App" \
-            --vargs "DEVELOPMENT_TEAM=C4MF2U58VT PROVISIONING_PROFILE_SPECIFIER=\"Sendo iOS Cert\""
+          # 1. Creamos el archivo de empaquetado (.xcarchive) inyectando tu Team ID a la fuerza
+          xcodebuild -workspace "ios/App/App.xcworkspace" \
+            -scheme "App" \
+            -configuration "Release" \
+            -archivePath "build/ios/xcarchive/App.xcarchive" \
+            archive \
+            DEVELOPMENT_TEAM="C4MF2U58VT" \
+            CODE_SIGN_STYLE="Manual" \
+            PROVISIONING_PROFILE_SPECIFIER="Sendo iOS Cert"
+
+          # 2. Exportamos el archivo .xcarchive a un formato .ipa final listo para la App Store
+          xcodebuild -exportArchive \
+            -archivePath "build/ios/xcarchive/App.xcarchive" \
+            -exportPath "build/ios/ipa" \
+            -exportOptionsPlist "ios/App/App/ExportOptions.plist"
 
     artifacts:
       - build/ios/ipa/*.ipa
