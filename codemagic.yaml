@@ -84,7 +84,6 @@ workflows:
     environment:
       node: latest
       xcode: latest
-      # Al ponerlo acá adentro, Codemagic genera las variables de entorno manuales para Xcode automáticamente
       ios_signing:
         distribution_type: app_store
         bundle_identifier: app.sendo.delivery
@@ -121,7 +120,8 @@ workflows:
 
       - name: Initialize iOS Signing
         script: |
-          xcode-project use-profiles
+          # Le sumamos la bandera de descarga y generación limpia sin argumentos posicionales
+          xcode-project use-profiles --download-profiles
 
       - name: Build IPA
         script: |
