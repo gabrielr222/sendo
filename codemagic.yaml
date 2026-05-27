@@ -87,11 +87,7 @@ workflows:
 
       vars:
         BUNDLE_ID: "app.sendo.delivery"
-
-    # Moviendo la sección de firma al bloque principal del workflow
-    ios_signing:
-      distribution_type: app_store
-      bundle_identifier: app.sendo.delivery
+        APP_STORE_APPLE_ID: "codemagic"
 
     integrations:
       app_store_connect: codemagic
@@ -123,9 +119,9 @@ workflows:
           cd ios/App
           pod install
 
-      - name: Fetch iOS Provisioning Profiles
+      - name: Initialize iOS Signing
         script: |
-          xcode-project use-profiles --create
+          xcode-project use-profiles --bundle-identifier="app.sendo.delivery" --type="app_store" --create
 
       - name: Build IPA
         script: |
