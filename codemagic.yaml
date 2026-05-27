@@ -84,6 +84,7 @@ workflows:
     environment:
       node: latest
       xcode: latest
+      # Esto genera las variables globales necesarias de forma correcta
       ios_signing:
         distribution_type: app_store
         bundle_identifier: app.sendo.delivery
@@ -120,8 +121,8 @@ workflows:
 
       - name: Initialize iOS Signing
         script: |
-          # Al estar el perfil creado en la web, el comando plano lo descarga al instante
-          xcode-project use-profiles
+          # Usamos argumentos nativos del comando para sobreescribir cualquier herencia de Capacitor
+          xcode-project use-profiles --bundle-identifier="app.sendo.delivery" --type="app_store"
 
       - name: Build IPA
         script: |
