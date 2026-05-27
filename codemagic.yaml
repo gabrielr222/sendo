@@ -120,7 +120,7 @@ workflows:
 
       - name: Initialize iOS Signing
         script: |
-          xcode-project use-profiles -b "app.sendo.delivery" -t "app_store" --create
+          xcode-project use-profiles --create
 
       - name: Build IPA
         script: |
