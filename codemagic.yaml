@@ -88,12 +88,10 @@ workflows:
       vars:
         BUNDLE_ID: "app.sendo.delivery"
 
-<<<<<<< HEAD
-      ios_signing:
-=======
       ios_signing:
         distribution_type: app_store
         bundle_identifier: app.sendo.delivery
+        create_profiles: true
 
     integrations:
       app_store_connect: codemagic
@@ -125,6 +123,10 @@ workflows:
           cd ios/App
           pod install
 
+      - name: Fetch iOS Provisioning Profiles
+        script: |
+          xcode-project use-profiles
+
       - name: Build IPA
         script: |
           xcode-project build-ipa \
@@ -138,5 +140,3 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-
->>>>>>> 3dc5226d853e597be4e0de22149a69ea7b1b1c4c
