@@ -84,9 +84,10 @@ workflows:
     environment:
       node: latest
       xcode: latest
-
-      vars:
-        BUNDLE_ID: "app.sendo.delivery"
+      # Al ponerlo acá adentro, Codemagic genera las variables de entorno manuales para Xcode automáticamente
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: app.sendo.delivery
 
     integrations:
       app_store_connect: codemagic
