@@ -120,7 +120,7 @@ workflows:
 
       - name: Initialize iOS Signing
         script: |
-          # Ahora que el perfil existe en la web, el comando limpio lo descarga solo
+          # Al estar el perfil creado en la web, el comando plano lo descarga al instante
           xcode-project use-profiles
 
       - name: Build IPA
