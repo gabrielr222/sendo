@@ -34,16 +34,14 @@ workflows:
           mkdir -p dist
           echo "<html><body>Sendo</body></html>" > dist/index.html
 
-      - name: Sync Capacitor
+      - name: Sync Capacitor Android
         script: |
           npx cap sync android
 
       - name: Update Android version
         script: |
           cd android
-
           sed -i.bak "s/versionCode [0-9]*/versionCode $CM_VERSION_CODE/" app/build.gradle
-
           sed -i.bak 's/versionName "[^"]*"/versionName "'"$CM_VERSION_NAME"'"/' app/build.gradle
 
       - name: Inject signing config
@@ -76,3 +74,68 @@ workflows:
 
     artifacts:
       - android/app/build/outputs/**/*.aab
+
+  capacitor-ios:
+    name: Build Sendo iOS IPA
+
+    instance_type: mac_mini_m1
+    max_build_duration: 60
+
+    environment:
+      node: latest
+      xcode: latest
+
+      vars:
+        BUNDLE_ID: "app.sendo.delivery"
+
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: app.sendo.delivery
+
+    integrations:
+      app_store_connect: codemagic
+
+    triggering:
+      events:
+        - push
+
+      branch_patterns:
+        - pattern: main
+          include: true
+
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install --legacy-peer-deps
+
+      - name: Create dummy web assets
+        script: |
+          mkdir -p dist
+          echo "<html><body>Sendo</body></html>" > dist/index.html
+
+      - name: Sync Capacitor iOS
+        script: |
+          npx cap sync ios
+
+      - name: Install CocoaPods
+        script: |
+          cd ios/App
+          pod install
+
+      - name: Fetch iOS Provisioning Profiles
+        script: |
+          xcode-project use-profiles
+
+      - name: Build IPA
+        script: |
+          xcode-project build-ipa \
+            --workspace "ios/App/App.xcworkspace" \
+            --scheme "App"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
