@@ -10,8 +10,8 @@ workflows:
       java: 21
 
       vars:
-        CM_VERSION_CODE: "78"
-        CM_VERSION_NAME: "1.4"
+        CM_VERSION_CODE: "79"
+        CM_VERSION_NAME: "1.5"
 
       android_signing:
         - sendo-key
