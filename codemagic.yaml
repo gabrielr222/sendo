@@ -11,7 +11,7 @@ workflows:
 
       vars:
         CM_VERSION_CODE: "79"
-        CM_VERSION_NAME: "1.5"
+        CM_VERSION_NAME: "1.4"
 
       android_signing:
         - sendo-key
@@ -46,7 +46,7 @@ workflows:
 
       - name: Inject signing config
         script: |
-          cat >> android/app/build.gradle <<EOF
+          cat >> app/build.gradle <<EOF
 
           android {
               signingConfigs {
@@ -87,6 +87,8 @@ workflows:
 
       vars:
         BUNDLE_ID: "app.sendo.delivery"
+        IOS_VERSION_NAME: "1.4"
+        IOS_BUILD_NUMBER: "79"
 
       ios_signing:
         distribution_type: app_store
@@ -121,6 +123,12 @@ workflows:
         script: |
           cd ios/App
           pod install
+
+      - name: Update iOS version and build number
+        script: |
+          cd ios/App
+          agvtool new-marketing-version $IOS_VERSION_NAME
+          agvtool new-version -all $IOS_BUILD_NUMBER
 
       - name: Set up code signing
         script: |
