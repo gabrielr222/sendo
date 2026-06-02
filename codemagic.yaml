@@ -10,8 +10,8 @@ workflows:
       java: 21
 
       vars:
-        CM_VERSION_CODE: "79"
-        CM_VERSION_NAME: "1.4"
+        CM_VERSION_CODE: "80"
+        CM_VERSION_NAME: "1.5"
 
       android_signing:
         - sendo-key
@@ -87,8 +87,8 @@ workflows:
 
       vars:
         BUNDLE_ID: "app.sendo.delivery"
-        IOS_VERSION_NAME: "1.4"
-        IOS_BUILD_NUMBER: "79"
+        IOS_VERSION_NAME: "1.5"
+        IOS_BUILD_NUMBER: "80"
 
       ios_signing:
         distribution_type: app_store
