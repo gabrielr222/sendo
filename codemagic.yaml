@@ -44,28 +44,6 @@ workflows:
           sed -i.bak "s/versionCode [0-9]*/versionCode $CM_VERSION_CODE/" app/build.gradle
           sed -i.bak 's/versionName "[^"]*"/versionName "'"$CM_VERSION_NAME"'"/' app/build.gradle
 
-      - name: Inject signing config
-        script: |
-          cat >> app/build.gradle <<EOF
-
-          android {
-              signingConfigs {
-                  release {
-                      storeFile file(System.getenv("CM_KEYSTORE_PATH"))
-                      storePassword System.getenv("CM_KEYSTORE_PASSWORD")
-                      keyAlias System.getenv("CM_KEY_ALIAS")
-                      keyPassword System.getenv("CM_KEY_PASSWORD")
-                  }
-              }
-
-              buildTypes {
-                  release {
-                      signingConfig signingConfigs.release
-                  }
-              }
-          }
-          EOF
-
       - name: Build Signed AAB
         script: |
           cd android
