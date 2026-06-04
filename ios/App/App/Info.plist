@@ -65,10 +65,13 @@
 	<string>Sendo utiliza tu ubicación para mostrarte los locales y comercios más cercanos a tu zona, y para calcular la distancia y el costo estimado de envío de tus pedidos.</string>
 
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs access to your camera.</string>
+	<string>Sendo necesita acceso a tu cámara para tomar fotos de comprobantes de pago, retiro y entrega de pedidos.</string>
 
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This app needs access to your microphone.</string>
+	<string>Sendo necesita acceso a tu micrófono para funciones de grabación multimedia.</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Sendo necesita acceso a tu galería para seleccionar fotos de comprobantes de pago, documentos de identidad y fotos de perfil.</string>
 
 	<key>UIBackgroundModes</key>
 	<array>
