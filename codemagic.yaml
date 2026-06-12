@@ -91,8 +91,10 @@ workflows:
         IOS_BUILD_NUMBER: "83"
 
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: app.sendo.delivery
+  distribution_type: app_store
+  bundle_identifiers:
+    - app.sendo.delivery
+    - app.sendo.delivery.NotificationService
 
     integrations:
       app_store_connect: codemagic
