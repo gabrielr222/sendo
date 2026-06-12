@@ -303,7 +303,7 @@
 
 /* Begin PBXVariantGroup section */
 		504EC30B1FED79650016851F /* Main.storyboard */ = {
-			isa = PBVariantGroup;
+			isa = PBXVariantGroup;
 			children = (
 				504EC30C1FED79650016851F /* Base */,
 			);
