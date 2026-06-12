@@ -26,3 +26,8 @@ end
 post_install do |installer|
   assertDeploymentTarget(installer)
 end
+
+target 'NotificationService' do
+  use_frameworks!
+  pod 'OneSignalXCFramework', '>= 5.0.0', '< 6.0'
+end
